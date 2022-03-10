@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie list</title>
+    <style>
+        *{
+            margin: 10px;
+            padding: 5px;
+        }
+        hr
+        {
+            margin: 15px;
+            padding: 1px;
+             background-color: black
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Watched Movie List </h1>
+    <div  style="border: 3px solid black;">
+
+        
+        <label for="title">Movie Type</label>
+        <input type="text" id="title">
+        <hr>
+        <br>
+        <label for="note">Movie Name</label>
+        <input type="text" id="note">
+
+        <hr>
+        <br>
+        <button id="btn">Submit</button>
+    </div>
+    <div id="div">
+
+    </div>
+    <script>
+        
+        let title = document.getElementById("title"); 
+        let note = document.getElementById("note"); 
+        let btn = document.getElementById("btn"); 
+        let div = document.getElementById("div"); 
+        let notes= localStorage.getItem("notes")
+        
+        addToLocal = [];
+        btn.addEventListener("click", function(){
+            
+            let obj ={
+                title : title.value,
+                note : note.value
+            }
+            addToLocal.push(obj);
+            // localStorage.setItem("notes" ,  JSON.stringify(addToLocal))
+            
+            console.log(title.value)
+            console.log(note.value)
+            console.log(addToLocal);
+            title.value = "";
+            note.value = "";
+            show();
+        });
+        function show()
+        {
+            let html ;
+            
+            addToLocal.forEach(function (element,index) {
+                // console.g(element)
+                // addToLocal = JSON.parse(notes);
+                html += `
+                <div>
+                    <label for="">${index+1}</label>
+                    <label for="">${element.title}</label>
+                    <label for="">${element.note}</label>
+                    <button id="${index}"   onclick="deleteA(this.id)" >Delete</button>
+                </div>`;
+            });
+            div.innerHTML = html;
+        }
+
+        function deleteA(index)
+        {
+            console.log("delete call")
+            
+            console.log()
+            addToLocal.splice(index, 1);
+            show();
+        }
+
+console.log(addToLocal.push({title: 'bollywood', note: 'Chahat'}))
+console.log(addToLocal.push({title: 'hollywood', note: 'player'}))
+console.log(addToLocal.push({title: 'south indian', note: 'pushpa'}))
+console.log(addToLocal.push({title: 'bollywood', note: 'jab we mate'}))
+       
+
+
+
+    </script>
+
+</html>
